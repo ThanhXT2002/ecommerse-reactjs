@@ -15,12 +15,7 @@ function HomePage() {
             <Banner />
         </div>
        
-        <main className={styles.content}>
-          
-            <h1>Welcome to Marseille Store</h1>
-            <p>This is the main content area</p>
-        </main>
-        <MyFooter />
+        
     </div>
     );
 }
