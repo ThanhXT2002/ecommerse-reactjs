@@ -10,6 +10,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
       '@components': path.resolve(__dirname, './src/components'),
       '@styles': path.resolve(__dirname, './src/assets/styles'),
+      '@icons': path.resolve(__dirname, './src/assets/icons'),
       // 'react': 'react.js',
       // 'react-dom': 'react-dom.js',
       // 'react-dom/client': 'react-dom/client.js',

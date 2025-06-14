@@ -6,7 +6,7 @@ import MyButton from '@components/Button/Button';
 
 function App() {
     return (
-        <MainLayout>
+        <>
             <MyHeader />
             <main className={styles.content}>
               <MyButton></MyButton>
@@ -14,7 +14,7 @@ function App() {
                 <p>This is the main content area</p>
             </main>
             <MyFooter />
-        </MainLayout>
+        </>
     );
 }
 
