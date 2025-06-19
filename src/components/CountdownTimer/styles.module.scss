@@ -1,0 +1,14 @@
+@import '@styles/_mixin.module.scss';
+@import '@styles/_variables.module.scss';
+
+.box{
+   background-color: white;
+   padding: 6px;
+   border-radius: 4px;
+   margin-top: 150px;
+}
+
+.title{
+   font-size: 18px;
+   color: $secondary_color;
+}

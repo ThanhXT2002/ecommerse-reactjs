@@ -8,10 +8,10 @@ function App() {
     return (
         <>
            <HomePage/>
-           <Info/>
+           
 
            
-        <MyFooter />
+        {/* <MyFooter /> */}
         </>
     );
 }

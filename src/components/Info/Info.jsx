@@ -7,9 +7,15 @@ function Info() {
     const { container } = styles;
 
     return (
-        <MainLayout>            <div className={container}>
+        <MainLayout>
+            <div className={container}>
                 {dataInfo.map((item, index) => (
-                    <InfoCard key={index} content={item.title} description={item.description} src={item.src} />
+                    <InfoCard
+                        key={index}
+                        content={item.title}
+                        description={item.description}
+                        src={item.src}
+                    />
                 ))}
             </div>
         </MainLayout>
