@@ -5,25 +5,30 @@ import styles from './styles.module.scss';
 import AdvanceHeadling from '@components/AdvanceHeadling/AdvanceHeadling';
 import Info from '@components/Info/Info';
 import HeadingListProduct from '@components/HeadingLisProdict/HeadlingListProduct';
-
+import { use, useEffect } from 'react';
+import { getProducts } from '@/apis/productsService';
 
 function HomePage() {
 
-     const{ container } = styles;
+    useEffect(() => {
+       getProducts();
+    }, []);
+
+    const { container } = styles;
 
     return (
-    <div>
-        <div className={container}>
-            <MyHeader />
-            <Banner />
-            <Info/>
-            <AdvanceHeadling/>
-            <HeadingListProduct/>
-            
+        <div>
+            <div className={container}>
+                <MyHeader />
+                <Banner />
+                <Info />
+                <AdvanceHeadling />
+                <HeadingListProduct />
+            </div>
+            <div  style={{height:'100px' }}>
+
+            </div>
         </div>
-       
-        
-    </div>
     );
 }
 

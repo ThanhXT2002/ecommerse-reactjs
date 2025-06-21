@@ -44,7 +44,6 @@ const CountdownTimer = ({ targetDate }) => {
             );
         }
     });
-    console.log(timerComponents);
 
     return timerComponents;
 };
