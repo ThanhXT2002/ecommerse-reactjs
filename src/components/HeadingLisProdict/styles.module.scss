@@ -1,16 +1,13 @@
 @import '@styles/_mixin.module.scss';
 @import '@styles/_variables.module.scss';
-@import url();
 
 .container {
-    @include flex_box_custom(space-between, center, 10px);
+    @include flex_box_custom(space-between, center, 15px);
     margin-top: 40px;
-    // margin: 65px 0px 15px;
-    // flex-direction: column;
 }
 
 .containerItem {
-    @include flex_box_custom(center, center, 10px);
+    @include flex_box_custom(center, center, 15px);
 }
 
 
