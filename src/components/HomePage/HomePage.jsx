@@ -30,11 +30,10 @@ function HomePage() {
                 <AdvanceHeadling />
                 <HeadingListProduct data={ListProducts.slice(0,2)}/>
                 <PopularProduct data={ListProducts.slice(2,ListProducts.length)}/>
-                <SaleHomePage/>.
+                <SaleHomePage/>
+                
             </div>
-            <div  style={{height:'100px' }}>
-
-            </div>
+            {/* <MyFooter /> */}
         </div>
     );
 }
