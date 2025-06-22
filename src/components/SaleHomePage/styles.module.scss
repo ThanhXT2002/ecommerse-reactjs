@@ -1,0 +1,37 @@
+@import '@styles/_mixin.module.scss';
+@import '@styles/_variables.module.scss';
+
+.container{
+    @include flex_box_custom(space-between, center, 10px);
+    margin-top: 100px;
+    
+    .title{
+        font-size: 35px;
+        color: $four_color;
+        font-weight: 400;
+    }
+
+    .des{
+        font-size: 16px;
+        color: $thr_color;
+        font-weight: 300;
+        width: 460px;
+        text-align: center;
+        line-height: 25px;
+    }
+
+    .boxBtn{
+        margin-top: 10px;
+    }
+
+    .boxImg{
+        @include flex_box_custom(center, center, 0px);
+        width: 100%;
+    }
+
+}
+
+.boxContent{
+    @include flex_box_custom(center, center, 20px);
+    flex-direction: column;
+}
