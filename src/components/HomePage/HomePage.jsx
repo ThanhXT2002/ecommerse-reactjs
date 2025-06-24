@@ -31,9 +31,8 @@ function HomePage() {
                 <HeadingListProduct data={ListProducts.slice(0,2)}/>
                 <PopularProduct data={ListProducts.slice(2,ListProducts.length)}/>
                 <SaleHomePage/>
-                <MyFooter/>.
+                <MyFooter/>
             </div>
-            {/* <MyFooter /> */}
         </div>
     );
 }
