@@ -1,10 +1,10 @@
 import styles from '../Header.module.scss';
 
-function Menu({ content, href }) {
+function Menu({ content, href, setIsOpen }) {
 
     const { menu } = styles;
 
-    return <div className={menu}> {content} </div>;
+    return <div className={menu} onClick={() => setIsOpen(true)}> {content} </div>;
 }
 
 export default Menu;

@@ -6,9 +6,10 @@ import Logo from '@icons/images/Logo-retina.webp';
 import reloadIcon from '@icons/svgs/reloadIcon.svg';
 import heartIcon from '@icons/svgs/heartIcon.svg';
 import cartIcon from '@icons/svgs/cartIcon.svg';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import useScrollHandling from '@/hooks/useScrollHandling';
 import classname from 'classnames';
+import { SidebarContext } from '@/context/SidebarProvider';
 
 function MyHeader() {
     const {
@@ -23,6 +24,10 @@ function MyHeader() {
 
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFiexedPosition] = useState(false);
+
+    const {isOpen, setIsOpen} = useContext(SidebarContext);
+
+    console.log('isOpen', isOpen);
 
     useEffect(() => {
         // if (scrollPosition > 80) {
@@ -78,6 +83,7 @@ function MyHeader() {
                                     key={index}
                                     content={item.content}
                                     href={item.href}
+                                    setIsOpen={setIsOpen}
                                 ></Menu>
                             ))}
                     </div>

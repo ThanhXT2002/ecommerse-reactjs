@@ -1,11 +1,13 @@
 import routers from '@/routers/routers';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Suspense } from 'react';
-import { SidebarProvider } from '@/context/Sidebar';
+import { SidebarProvider } from '@/context/SidebarProvider';
+import SideBar from '@components/Sidebar/SideBar';
 
 function App() {
     return (
         <SidebarProvider>
+            <SideBar/>
             <BrowserRouter>
                 <Suspense fallback={<div>Loading...</div>}>
                     <Routes>
