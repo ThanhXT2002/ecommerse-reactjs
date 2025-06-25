@@ -1,6 +1,5 @@
 @import '@styles/_mixin.module.scss';
 @import '@styles/_variables.module.scss';
-@import url();
 
 .container {
     @include flex_box_custom(space-between, center, 10px);

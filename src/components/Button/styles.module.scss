@@ -1,6 +1,5 @@
 @import '@styles/_mixin.module.scss';
 @import '@styles/_variables.module.scss';
-@import url();
 
 .btn {
     @include btn(176px, 42px, 3px, $primary_color);
