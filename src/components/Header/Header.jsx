@@ -27,7 +27,7 @@ function MyHeader() {
 
     const {isOpen, setIsOpen} = useContext(SidebarContext);
 
-    console.log('isOpen', isOpen);
+    // console.log('isOpen', isOpen);
 
     useEffect(() => {
         // if (scrollPosition > 80) {
