@@ -9,7 +9,10 @@ function Banner() {
             <h1 className={title}>Welcome to Marseille Store</h1>
             <div className={des}
             >Discover our exclusive collection of products</div>
-             <Button content={"Go to shop"}/>
+            <div style={{width: '176px'}}>
+                <Button content={"Go to shop"} />
+            </div>
+             
         </div>
     </div>;
 }

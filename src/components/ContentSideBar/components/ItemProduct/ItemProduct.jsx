@@ -2,7 +2,7 @@ import styles from './styles.module.scss';
 import { RiCloseLargeFill } from "react-icons/ri";
 
 function ItemProduct() {
-    const { container, boxContent, title, price, boxClose } = styles;
+    const { container, boxContent, title, price, boxClose, size } = styles;
     return (
         <div className={container}>
             <img
@@ -18,7 +18,9 @@ function ItemProduct() {
             </div>
             <div className={boxContent}>
                 <div className={title}>title of product</div>
+                <div className={size}>Size: M</div>
                 <div className={price}>$199.99</div>
+                <div className={price}>SKU: 123456</div>
             </div>
         </div>
     );
