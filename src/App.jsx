@@ -4,29 +4,32 @@ import { Suspense } from 'react';
 import { SidebarProvider } from '@/context/SidebarProvider';
 import SideBar from '@components/Sidebar/SideBar';
 import { ToastProvider } from '@/context/ToastProvider';
+import { StoreProvider } from '@/context/storeProvider';
 
 function App() {
     return (
-        <ToastProvider>
-            <SidebarProvider>
-                <SideBar />
-                <BrowserRouter>
-                    <Suspense fallback={<div>Loading...</div>}>
-                        <Routes>
-                            {routers.map((item, index) => {
-                                return (
-                                    <Route
-                                        path={item.path}
-                                        element={<item.component />}
-                                        key={index}
-                                    />
-                                );
-                            })}
-                        </Routes>
-                    </Suspense>
-                </BrowserRouter>
-            </SidebarProvider>
-        </ToastProvider>
+        <StoreProvider>
+            <ToastProvider>
+                <SidebarProvider>
+                    <SideBar />
+                    <BrowserRouter>
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <Routes>
+                                {routers.map((item, index) => {
+                                    return (
+                                        <Route
+                                            path={item.path}
+                                            element={<item.component />}
+                                            key={index}
+                                        />
+                                    );
+                                })}
+                            </Routes>
+                        </Suspense>
+                    </BrowserRouter>
+                </SidebarProvider>
+            </ToastProvider>
+        </StoreProvider>
     );
 }
 
