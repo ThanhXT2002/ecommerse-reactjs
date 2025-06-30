@@ -6,7 +6,8 @@ import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
 import { ToastContext } from '@/context/ToastProvider';
-import { register } from '@/apis/authService';
+import { register, signIn } from '@/apis/authService';
+import Cookies from 'js-cookie';
 
 function Login() {
     const { container, title, lostPassword, boxRememberMe, boxBtnLogin } =
@@ -33,18 +34,43 @@ function Login() {
             )
         }),
         onSubmit: async (values) => {
-            if(isLoading) return; // Prevent multiple submissions
+            if (isLoading) return; // Prevent multiple submissions
+            setIsLoading(true);
+            const { email: username, password } = values;
             if (isRegister) {
-                const { email: username, password } = values;
+                await register({ username, password })
+                    .then((res) => {
+                        toast.success(
+                            res.data.message || 'Registration successful'
+                        );
+                        setIsLoading(false);
+                    })
+                    .catch((error) => {
+                        toast.error(
+                            error.response?.data?.message ||
+                                'Registration failed'
+                        );
+                        setIsLoading(false);
+                    });
+            }
+
+            if (!isRegister) {
                 setIsLoading(true);
-                await register({ username, password }).then((res) => {
-                     toast.success(res.data.message || 'Registration successful');
-                     setIsLoading(false);
-                }).catch((error) => {
-                    toast.error(error.response?.data?.message || 'Registration failed');
-                     setIsLoading(false);
-                });
-               
+                await signIn({ username, password })
+                    .then((res) => {
+                        toast.success(res.data.message || 'Login successful');
+                        setIsLoading(false);
+                        const {id, token, refreshToken} = res.data;
+
+                        Cookies.set('token', token);
+                        Cookies.set('refreshToken', refreshToken);
+                    })
+                    .catch((error) => {
+                        toast.error(
+                            error.response?.data?.message || 'Login failed'
+                        );
+                        setIsLoading(false);
+                    });
             }
         }
     });
@@ -93,7 +119,13 @@ function Login() {
                 <div className={boxBtnLogin}>
                     <div style={{ width: '100%' }}>
                         <Button
-                            content={ isLoading?'LOADING...':  isRegister ? 'REGISTER' : 'LOGIN'}
+                            content={
+                                isLoading
+                                    ? 'LOADING...'
+                                    : isRegister
+                                    ? 'REGISTER'
+                                    : 'LOGIN'
+                            }
                             type="submit"
                             // onClick={() => toast.success('Login successful!')}
                         />
