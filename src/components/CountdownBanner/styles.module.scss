@@ -23,6 +23,8 @@
 
 .boxBtn{
     margin-top: 15px;
-    width: 100%;
+    width: 176px;
+    margin-left: auto;
+    margin-right: auto;
     @include flex_box_custom(center, center, 0px)
 }
