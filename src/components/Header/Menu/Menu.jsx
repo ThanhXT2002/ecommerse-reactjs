@@ -1,7 +1,7 @@
-import { SidebarContext } from '@/context/SidebarProvider';
+import { SidebarContext } from '@contexts/SidebarProvider';
 import styles from '../Header.module.scss';
 import { useContext, useState } from 'react';
-import { StoreContext } from '@/context/storeProvider';
+import { StoreContext } from '@contexts/storeProvider';
 import { useNavigate } from 'react-router-dom';
 
 

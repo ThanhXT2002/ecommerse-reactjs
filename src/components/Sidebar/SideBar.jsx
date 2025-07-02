@@ -1,4 +1,4 @@
-import { SidebarContext } from '@/context/SidebarProvider';
+import { SidebarContext } from '@contexts/SidebarProvider';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { useContext } from 'react';

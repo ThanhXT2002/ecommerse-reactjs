@@ -9,7 +9,7 @@ import { PiShoppingCart } from 'react-icons/pi';
 import { useContext, useEffect, useState } from 'react';
 import useScrollHandling from '@/hooks/useScrollHandling';
 import classname from 'classnames';
-import { SidebarContext } from '@/context/SidebarProvider';
+import { SidebarContext } from '@contexts/SidebarProvider';
 
 function MyHeader() {
     const {

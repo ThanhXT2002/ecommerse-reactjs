@@ -5,11 +5,11 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Link } from 'react-router-dom';
 import { useContext, useState } from 'react';
-import { ToastContext } from '@/context/ToastProvider';
+import { ToastContext } from '@contexts/ToastProvider';
 import { register, signIn } from '@/apis/authService';
 import Cookies from 'js-cookie';
-import { SidebarContext } from '@/context/SidebarProvider';
-import { StoreContext } from '@/context/storeProvider';
+import { SidebarContext } from '@contexts/SidebarProvider';
+import { StoreContext } from '@contexts/storeProvider';
 
 function Login() {
     const { container, title, lostPassword, boxRememberMe, boxBtnLogin } =
