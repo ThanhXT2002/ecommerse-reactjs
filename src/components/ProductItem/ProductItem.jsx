@@ -7,7 +7,13 @@ import cls from 'classnames';
 import Button from '@components/Button/Button';
 import { useContext, useEffect, useState } from 'react';
 import { OurShopContext } from '@contexts/OurShopProvider';
-
+import Cookies from 'js-cookie';
+import SideBar from '@components/Sidebar/SideBar';
+import { SidebarContext } from '@contexts/SidebarProvider';
+import { use } from 'react';
+import { ToastContext } from '@contexts/ToastProvider';
+import { addProductToCart } from '@/apis/cartService';
+import LoadingTextCommon from '@components/LoadingTextCommon/LoadingTextCommon';
 
 function ProductItem({
     src,
@@ -17,12 +23,15 @@ function ProductItem({
     details,
     isHomePage = true
 }) {
-
     // const context = useContext(OurShopContext);
     // const isShowGrid = isHomePage ? true : (context?.isShowGrid ?? true);
     const [sizeChoose, setSizeChoose] = useState('');
     const ourShopStore = useContext(OurShopContext);
     const [isShowGrid, setIsShowGrid] = useState(ourShopStore?.isShowGrid);
+    const userId = Cookies.get('userId');
+    const { setIsOpen, setType, handleGetListProductsCart } = useContext(SidebarContext);
+    const { toast } = useContext(ToastContext);
+    const [isLoading, setIsLoading] = useState(false);
 
     const {
         containeritem,
@@ -44,25 +53,60 @@ function ProductItem({
     } = styles;
 
     const handleChooseSize = (size) => {
-       setSizeChoose(size);
-    }
+        setSizeChoose(size);
+    };
 
     const handleClearSize = () => {
         setSizeChoose('');
-    }
-   
+    };
+
+    const handleAddToCart = () => {
+        if (!userId) {
+            setIsOpen(true);
+            setType('login');
+            toast.error('Please login to add items to your cart');
+            return;
+        }
+
+        if (!sizeChoose) {
+            toast.warning('Please choose a size before adding to cart');
+            return;
+        }
+
+        const data = {
+            userId,
+            productId: details._id,
+            quantity: 1,
+            size: sizeChoose
+        };
+
+        setIsLoading(true);
+        addProductToCart(data).then((res) =>{
+            console.log(res);
+            setIsOpen(true);
+            setType('cart');
+            toast.success('Product added to cart successfully');
+            setIsLoading(false);
+            handleGetListProductsCart(userId, 'cart'); 
+        }).catch((error) => {
+            console.error('Error adding product to cart:', error);
+            oast.error('Failed to add product to cart');
+            setIsLoading(false);
+        });
+        
+    };
+
     useEffect(() => {
-       if(isHomePage) {
-           setIsShowGrid(true);
-       }else{
-              setIsShowGrid(ourShopStore?.isShowGrid);
-       }
+        if (isHomePage) {
+            setIsShowGrid(true);
+        } else {
+            setIsShowGrid(ourShopStore?.isShowGrid);
+        }
     }, [isHomePage, ourShopStore?.isShowGrid]);
 
-
     return (
-        <div className={isShowGrid ? '' :containeritem}>
-            <div className={cls(boxImg, {[largImg]: !isShowGrid})}>
+        <div className={isShowGrid ? '' : containeritem}>
+            <div className={cls(boxImg, { [largImg]: !isShowGrid })}>
                 <img src={src} alt="img 1" />
                 <img src={prevSrc} alt="img 2" className={showImgWhenHover} />
                 <div className={showFncWhenHover}>
@@ -86,9 +130,13 @@ function ProductItem({
                     <div className={boxSize}>
                         {details?.size.map((item, index) => {
                             return (
-                                <div key={index} className={cls(size,{
-                                    [isActiveSize]: sizeChoose === item.name
-                                })} onClick={() => handleChooseSize(item.name)}>
+                                <div
+                                    key={index}
+                                    className={cls(size, {
+                                        [isActiveSize]: sizeChoose === item.name
+                                    })}
+                                    onClick={() => handleChooseSize(item.name)}
+                                >
                                     {item.name}
                                 </div>
                             );
@@ -97,7 +145,9 @@ function ProductItem({
                 )}
 
                 {sizeChoose && !isHomePage && (
-                    <div className={btnClear} onClick={() => handleClearSize()}>Clear</div>
+                    <div className={btnClear} onClick={() => handleClearSize()}>
+                        Clear
+                    </div>
                 )}
 
                 <div
@@ -124,8 +174,11 @@ function ProductItem({
                 </div>
 
                 {!isHomePage && (
-                    <div className={cls(boxBtn, {[leftBtn]: !isShowGrid})}>
-                        <Button content={'ADD TO CART'} />
+                    <div className={cls(boxBtn, { [leftBtn]: !isShowGrid })}>
+                        <Button
+                            content={isLoading ? (<LoadingTextCommon/>):'ADD TO CART'}
+                            onClick={handleAddToCart}
+                        />
                     </div>
                 )}
             </div>

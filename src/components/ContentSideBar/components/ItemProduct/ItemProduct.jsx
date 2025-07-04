@@ -1,13 +1,20 @@
 import styles from './styles.module.scss';
 import { RiCloseLargeFill } from "react-icons/ri";
 
-function ItemProduct() {
+function ItemProduct({
+    src,
+    nameProduct,
+    priceProduct,
+    skuProduct,
+    sizeProduct,
+    quantity
+}) {
     const { container, boxContent, title, price, boxClose, size } = styles;
     return (
         <div className={container}>
             <img
-                src="https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-1.1-min.jpg"
-                alt=""
+                src={src}
+                alt="nameProduct"
             />
 
             <div className={boxClose} style={{
@@ -17,10 +24,10 @@ function ItemProduct() {
                 <RiCloseLargeFill/>
             </div>
             <div className={boxContent}>
-                <div className={title}>title of product</div>
-                <div className={size}>Size: M</div>
-                <div className={price}>$199.99</div>
-                <div className={price}>SKU: 123456</div>
+                <div className={title}>{nameProduct}</div>
+                <div className={size}>{sizeProduct}</div>
+                <div className={price}>{quantity} x ${priceProduct}</div>
+                <div className={price}>{skuProduct}</div>
             </div>
         </div>
     );
