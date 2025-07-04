@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from 'react';
 import useScrollHandling from '@/hooks/useScrollHandling';
 import classname from 'classnames';
 import { SidebarContext } from '@contexts/SidebarProvider';
+import Cookies from 'js-cookie';
 
 function MyHeader() {
     const {
@@ -27,11 +28,19 @@ function MyHeader() {
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFiexedPosition] = useState(false);
 
-    const { setIsOpen, setType, listProductCart } = useContext(SidebarContext);
+    const { setIsOpen, setType, listProductCart, handleGetListProductsCart } = useContext(SidebarContext);
 
     const handleOpenSidebar = (type) => {
         setIsOpen(true);
         setType(type);
+        
+        // Nếu mở cart, thì gọi API để lấy danh sách sản phẩm
+        if (type === 'cart') {
+            const userId = Cookies.get('userId');
+            if (userId) {
+                handleGetListProductsCart(userId, type);
+            }
+        }
     };
 
     // console.log('isOpen', isOpen);
