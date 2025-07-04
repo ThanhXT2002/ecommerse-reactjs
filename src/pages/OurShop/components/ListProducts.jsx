@@ -4,13 +4,14 @@ import { OurShopContext } from '@contexts/OurShopProvider';
 import ProductItem from '@components/ProductItem/ProductItem';
 import styles from '../styles.module.scss';
 import Button from '@components/Button/Button';
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 function ListProducts() {
-    const { products, isShowGrid, isLoading } = useContext(OurShopContext);
-    const { containerListProducts } = styles;
+    const { products, isShowGrid, isLoading,handleLoadMore,total, isLoadMore } = useContext(OurShopContext);
+    const { containerListProducts, sectionListProduct,loadingIcon } = styles;
 
     return (
-        <>
+        <div className={sectionListProduct}>
             <MainLayout>
                 {isLoading ? (
                     <>Loading...</>
@@ -32,7 +33,9 @@ function ListProducts() {
                                     />
                                 ))}
                         </div>
-                        <div
+                        {
+                            products.length < total && (
+                                <div
                             style={{
                                 width: '180px',
                                 textAlign: 'center',
@@ -40,12 +43,14 @@ function ListProducts() {
                                 
                             }}
                         >
-                            <Button content={'LOAD MORE PRODUCT'} />
+                            <Button content={isLoadMore ? (<AiOutlineLoading3Quarters className={loadingIcon}/>):'LOAD MORE PRODUCT'} onClick={handleLoadMore}/>
                         </div>
+                            )
+                        }
                     </>
                 )}
             </MainLayout>
-        </>
+        </div>
     );
 }
 

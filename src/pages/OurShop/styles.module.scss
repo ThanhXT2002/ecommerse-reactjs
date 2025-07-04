@@ -87,3 +87,19 @@
     flex-wrap: wrap;
     margin-top: 10px;
 }
+
+.sectionListProduct {
+    min-height: 800px;
+}
+
+.loadingIcon{
+    animation: loading 1s linear infinite;
+    @keyframes loading {
+        0%{
+            transform: rotate(0);
+        }
+        100%{
+            transform: rotate(360deg);
+        }
+    }
+}
