@@ -118,11 +118,14 @@ function MyHeader() {
                                 style={{ fontSize: '25px' }}
                                 onClick={() => handleOpenSidebar('cart')}
                             />
-                            {listProductCart.length > 0 && (
+                            {/* {listProductCart.length > 0 && (
                                 <div className={quantityCart}>
                                     {listProductCart.length}
                                 </div>
-                            )}
+                            )} */}
+                            <div className={quantityCart}>
+                                    {listProductCart.length}
+                                </div>
                         </div>
                     </div>
                 </div>
