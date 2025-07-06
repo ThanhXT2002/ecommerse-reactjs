@@ -1,9 +1,16 @@
+import CartTable from '@pages/Cart/components/Contents/CartTable';
+import styles from '../../styles.module.scss';
+
 function Contents() {
-    return ( <div>
-        <h1>Cart Contents</h1>
-        <p>This is where the cart contents will be displayed.</p>
-        {/* Add components to display cart items, total price, etc. */}
-    </div> );
+    const { containerContents } = styles;
+    return (
+        <div className={containerContents}>
+            <div>
+                <CartTable/>
+            </div>
+            <div>thành toán</div>
+        </div>
+    );
 }
 
 export default Contents;
