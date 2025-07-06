@@ -4,6 +4,7 @@ import { lazy } from 'react';
 const HomePage = lazy(() => import('@components/HomePage/HomePage'));
 const BlogPage = lazy(() => import('@components/BlogPage/BlogPage'));
 const OurShopPage = lazy(() => import('@pages/OurShop/OurShop'));
+const CartPage = lazy(() => import('@pages/Cart/Cart'));
 
 const routers = [
     {
@@ -17,6 +18,10 @@ const routers = [
     {
         path: '/shop',
         component: OurShopPage
+    },
+    {
+        path: '/Cart',
+        component: CartPage
     }
 ];
 
