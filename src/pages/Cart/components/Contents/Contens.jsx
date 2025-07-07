@@ -1,14 +1,17 @@
 import CartTable from '@pages/Cart/components/Contents/CartTable';
 import styles from '../../styles.module.scss';
+import CartSummary from '@pages/Cart/components/Contents/CartSummary';
 
 function Contents() {
-    const { containerContents } = styles;
+    const { containerContents, containerRight } = styles;
     return (
         <div className={containerContents}>
             <div>
                 <CartTable/>
             </div>
-            <div>thành toán</div>
+            <div className={containerRight}>
+                <CartSummary/>
+            </div>
         </div>
     );
 }
