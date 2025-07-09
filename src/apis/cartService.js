@@ -1,16 +1,23 @@
-import axiosClinet from './axiosClient';
+import axiosClient from './axiosClient';
 
 const addProductToCart = async (data) => {
-    return await axiosClinet.post('/cart', data);
+    return await axiosClient.post('/cart', data);
 };
 
 const getCart = async (userId) => {
-    return await axiosClinet.get(`/cart/${userId}`);
+    return await axiosClient.get(`/cart/${userId}`);
 };
 
 const deleteItem = async (body) => {
-    return await axiosClinet.delete(`/cart/deleteItem`,{data: body});
+    return await axiosClient.delete(`/cart/deleteItem`, {
+        data: body
+    });
 };
 
+const deleteCart = async (body) => {
+    return await axiosClient.delete(`/cart/delete`, {
+        data: body
+    });
+};
 
-export {addProductToCart,getCart, deleteItem}
+export { addProductToCart, getCart, deleteItem, deleteCart };

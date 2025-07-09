@@ -1,39 +1,12 @@
 import SelectBox from '@pages/OurShop/components/SelectBox';
 import styles from '../../styles.module.scss';
 import { CiTrash } from 'react-icons/ci';
-
-function CartTable() {
+import { use } from 'react';
+import LoadingCart from '@pages/Cart/components/Loading';
+// , getData, isLoading, getDataDelete
+function CartTable({ listProductCart, getData,isLoading, getDataDelete }) {
     const { cartTable } = styles;
-
-    const cartItems = [
-        {
-            id: 1,
-            name: 'Amet faucibus nunc',
-            price: 1879.99,
-            sku: 87654,
-            size: 'M',
-            quantity: 1,
-            image: 'https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-2.1-min-285x340.jpg'
-        },
-        {
-            id: 2,
-            name: '10K Yellow Gold',
-            price: 99.99,
-            sku: 12345,
-            size: 'S',
-            quantity: 1,
-            image: 'https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-2.1-min-285x340.jpg'
-        },
-        {
-            id: 3,
-            name: 'Consectetur nibh at',
-            price: 119.99,
-            sku: 12349,
-            size: 'M',
-            quantity: 1,
-            image: 'https://xstore.8theme.com/elementor2/marseille04/wp-content/uploads/sites/2/2022/12/Image-2.1-min-285x340.jpg'
-        }
-    ];
+    console.log('listProductCart', listProductCart);
 
     const showOptions = [
         { label: '1', value: '1' },
@@ -45,20 +18,22 @@ function CartTable() {
         { label: '7', value: '7' }
     ];
 
-    const handleDelete = (id) => {
-        console.log('Delete item with id:', id);
-    };
 
     const handleQuantityChange = (id, newQuantity) => {
         console.log('Update item:', id, 'to quantity:', newQuantity);
     };
 
-    const getValueSelect = (value, type) => {
-        // if (type === 'sort') {
-        //     setSortId(value);
-        // } else {
-        //     setShowId(value);
-        // }
+    const getValueSelect = (userId, productId, quantity, size) => {
+        const data = {
+            userId,
+            productId,
+            quantity,
+            size,
+            isMultiple: true
+        };
+        // console.log('Selected value:', data);
+
+        getData(data);
     };
 
     return (
@@ -75,10 +50,10 @@ function CartTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {cartItems.map((item) => (
-                        <tr key={item.id}>
+                    {listProductCart.map((item, index) => (
+                        <tr key={index}>
                             <td>
-                                <img src={item.image} alt={item.name} />
+                                <img src={item.images[0]} alt={item.name} />
                                 <div>
                                     <p>{item.name}</p>
                                     <p>Size: {item.size}</p>
@@ -86,7 +61,7 @@ function CartTable() {
                             </td>
                             <td>
                                 <CiTrash
-                                    onClick={() => handleDelete(item.id)}
+                                    onClick={() => getDataDelete({userId: item.userId, productId: item.productId})}
                                     style={{
                                         cursor: 'pointer',
                                         fontSize: '20px',
@@ -99,8 +74,9 @@ function CartTable() {
                             <td>
                                 <SelectBox
                                     options={showOptions}
-                                    getValue={getValueSelect}
+                                    getValue={(e) => getValueSelect(item.userId, item.productId, e, item.size)}
                                     type="show"
+                                    defaultValue={item.quantity}
                                 />
                             </td>
                             <td>${(item.price * item.quantity).toFixed(2)}</td>
@@ -108,6 +84,9 @@ function CartTable() {
                     ))}
                 </tbody>
             </table>
+            {isLoading && (
+                <LoadingCart />
+            )}
         </div>
     );
 }

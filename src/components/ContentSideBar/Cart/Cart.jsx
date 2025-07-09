@@ -36,6 +36,11 @@ function Cart() {
         setIsOpen(false);
     };
 
+    const handleNavigateToCart = () => {
+        navigate('/cart');
+        setIsOpen(false);
+    };
+
     return (
         <div
             className={cls(container, {
@@ -75,7 +80,7 @@ function Cart() {
                             <p>${subTotal}</p>
                         </div>
                         <div className={boxBtn}>
-                            <Button content={'VIEW CART'} />
+                            <Button content={'VIEW CART'}onClick={handleNavigateToCart} />
                             <Button content={'CHECKOUT'} isPrimary={false} />
                         </div>
                     </div>

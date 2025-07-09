@@ -15,21 +15,31 @@ export const SidebarProvider = ({ children }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleGetListProductsCart = (userId, type) => {
-        if(userId && type === 'cart') {
+        if (userId && type === 'cart') {
             setIsLoading(true);
-            getCart(userId).then((res) =>{
-                setListProductCart(res.data.data);
-                setIsLoading(false);
-            })
-            .catch((error) => {
-                setListProductCart([]);
-                setIsLoading(false);
-
-            });
+            getCart(userId)
+                .then((res) => {
+                    setListProductCart(res.data.data);
+                    setIsLoading(false);
+                })
+                .catch((error) => {
+                    setListProductCart([]);
+                    setIsLoading(false);
+                });
         }
     };
 
-    const value= {isOpen, setIsOpen, type, setType, handleGetListProductsCart, listProductCart, isLoading};
+    const value = {
+        isOpen,
+        setIsOpen,
+        type,
+        setType,
+        handleGetListProductsCart,
+        listProductCart,
+        isLoading,
+        setIsLoading,
+        userId
+    };
 
     useEffect(() => {
         if (userId) {
