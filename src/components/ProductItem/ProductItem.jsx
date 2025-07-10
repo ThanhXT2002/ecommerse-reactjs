@@ -1,19 +1,16 @@
 import styles from './styles.module.scss';
-import bagIcon from '@icons/svgs/bagIcon.svg';
-import reloadIcon from '@icons/svgs/reloadIcon.svg';
-import heartIcon from '@icons/svgs/heartIcon.svg';
-import eyeIcon from '@icons/svgs/eyeIcon.svg';
 import cls from 'classnames';
 import Button from '@components/Button/Button';
 import { useContext, useEffect, useState } from 'react';
 import { OurShopContext } from '@contexts/OurShopProvider';
 import Cookies from 'js-cookie';
-import SideBar from '@components/Sidebar/SideBar';
 import { SidebarContext } from '@contexts/SidebarProvider';
-import { use } from 'react';
 import { ToastContext } from '@contexts/ToastProvider';
 import { addProductToCart } from '@/apis/cartService';
 import LoadingTextCommon from '@components/LoadingTextCommon/LoadingTextCommon';
+import { CiHeart } from 'react-icons/ci';
+import { LiaEyeSolid, LiaShoppingBagSolid } from 'react-icons/lia';
+import { TfiReload } from 'react-icons/tfi';
 
 function ProductItem({
     src,
@@ -29,7 +26,8 @@ function ProductItem({
     const ourShopStore = useContext(OurShopContext);
     const [isShowGrid, setIsShowGrid] = useState(ourShopStore?.isShowGrid);
     const userId = Cookies.get('userId');
-    const { setIsOpen, setType, handleGetListProductsCart } = useContext(SidebarContext);
+    const { setIsOpen, setType, handleGetListProductsCart, setDetailProduct } =
+        useContext(SidebarContext);
     const { toast } = useContext(ToastContext);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -81,19 +79,26 @@ function ProductItem({
         };
 
         setIsLoading(true);
-        addProductToCart(data).then((res) =>{
-            console.log(res);
-            setIsOpen(true);
-            setType('cart');
-            toast.success('Product added to cart successfully');
-            setIsLoading(false);
-            handleGetListProductsCart(userId, 'cart'); 
-        }).catch((error) => {
-            console.error('Error adding product to cart:', error);
-            oast.error('Failed to add product to cart');
-            setIsLoading(false);
-        });
-        
+        addProductToCart(data)
+            .then((res) => {
+                console.log(res);
+                setIsOpen(true);
+                setType('cart');
+                toast.success('Product added to cart successfully');
+                setIsLoading(false);
+                handleGetListProductsCart(userId, 'cart');
+            })
+            .catch((error) => {
+                console.error('Error adding product to cart:', error);
+                oast.error('Failed to add product to cart');
+                setIsLoading(false);
+            });
+    };
+
+    const handleShowDetailProductSideBar = () => {
+        setIsOpen(true);
+        setType('detail');
+        setDetailProduct(details);
     };
 
     useEffect(() => {
@@ -111,16 +116,34 @@ function ProductItem({
                 <img src={prevSrc} alt="img 2" className={showImgWhenHover} />
                 <div className={showFncWhenHover}>
                     <div className={boxIcon}>
-                        <img src={bagIcon} alt="" />
+                        <LiaShoppingBagSolid
+                            style={{
+                                fontSize: '20px'
+                            }}
+                        />
                     </div>
                     <div className={boxIcon}>
-                        <img src={heartIcon} alt="" />
+                        <CiHeart
+                            style={{
+                                fontSize: '25px'
+                            }}
+                        />
                     </div>
                     <div className={boxIcon}>
-                        <img src={reloadIcon} alt="" />
+                        <TfiReload
+                            style={{
+                                fontSize: '20px'
+                            }}
+                        />
                     </div>
-                    <div className={boxIcon}>
-                        <img src={eyeIcon} alt="" />
+                    <div 
+                        className={boxIcon}
+                        onClick={handleShowDetailProductSideBar}>
+                        <LiaEyeSolid
+                            style={{
+                                fontSize: '23px'
+                            }}
+                        />
                     </div>
                 </div>
             </div>
@@ -176,7 +199,13 @@ function ProductItem({
                 {!isHomePage && (
                     <div className={cls(boxBtn, { [leftBtn]: !isShowGrid })}>
                         <Button
-                            content={isLoading ? (<LoadingTextCommon/>):'ADD TO CART'}
+                            content={
+                                isLoading ? (
+                                    <LoadingTextCommon />
+                                ) : (
+                                    'ADD TO CART'
+                                )
+                            }
                             onClick={handleAddToCart}
                         />
                     </div>

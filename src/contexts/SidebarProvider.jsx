@@ -11,6 +11,7 @@ export const SidebarProvider = ({ children }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [type, setType] = useState(''); // Thêm state để quản lý loại sidebar
     const [listProductCart, setListProductCart] = useState([]); // Thêm state để quản lý danh sách sản phẩm trong giỏ hàng
+       const [detailProduct, setDetailProduct] = useState(null);
     const userId = Cookies.get('userId');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -38,7 +39,9 @@ export const SidebarProvider = ({ children }) => {
         listProductCart,
         isLoading,
         setIsLoading,
-        userId
+        userId,
+        detailProduct,
+        setDetailProduct
     };
 
     useEffect(() => {
