@@ -11,7 +11,7 @@ import { FaXTwitter } from 'react-icons/fa6';
 import { FaFacebookF } from 'react-icons/fa';
 import { useState } from 'react';
 import cls from 'classnames';
-// import { addProductToCart } from '@/apis/cartService';
+import { addProductToCart } from '@/apis/cartService';
 
 function DetailProduct() {
     const {
@@ -66,25 +66,25 @@ function DetailProduct() {
     };
 
     const handleAddToCart = () => {
-        // const data = {
-        //     userId,
-        //     productId: detailProduct._id,
-        //     quantity,
-        //     size: chooseSize,
-        //     isMultiple: true
-        // };
+        const data = {
+            userId,
+            productId: detailProduct._id,
+            quantity,
+            size: chooseSize,
+            isMultiple: true
+        };
 
-        // setIsOpen(false);
-        // setIsLoading(true);
-        // addProductToCart(data)
-        //     .then((res) => {
-        //         setIsOpen(true);
-        //         setType('cart');
-        //         handleGetListProductsCart(userId, 'cart');
-        //     })
-        //     .catch((err) => {
-        //         console.log(err);
-        //     });
+        setIsOpen(false);
+        setIsLoading(true);
+        addProductToCart(data)
+            .then((res) => {
+                setIsOpen(true);
+                setType('cart');
+                handleGetListProductsCart(userId, 'cart');
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
 
     return (
