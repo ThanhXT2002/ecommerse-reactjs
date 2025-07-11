@@ -11,6 +11,7 @@ import LoadingTextCommon from '@components/LoadingTextCommon/LoadingTextCommon';
 import { CiHeart } from 'react-icons/ci';
 import { LiaEyeSolid, LiaShoppingBagSolid } from 'react-icons/lia';
 import { TfiReload } from 'react-icons/tfi';
+import { useNavigate } from 'react-router-dom';
 
 function ProductItem({
     src,
@@ -30,6 +31,7 @@ function ProductItem({
         useContext(SidebarContext);
     const { toast } = useContext(ToastContext);
     const [isLoading, setIsLoading] = useState(false);
+    const navigate = useNavigate();
 
     const {
         containeritem,
@@ -101,6 +103,10 @@ function ProductItem({
         setDetailProduct(details);
     };
 
+    const handleNavigateToDetail = () => {
+        navigate('/product/' + details._id);
+    };
+
     useEffect(() => {
         if (isHomePage) {
             setIsShowGrid(true);
@@ -110,8 +116,12 @@ function ProductItem({
     }, [isHomePage, ourShopStore?.isShowGrid]);
 
     return (
-        <div className={isShowGrid ? '' : containeritem}>
-            <div className={cls(boxImg, { [largImg]: !isShowGrid })}>
+        <div className={isShowGrid}
+        style={{
+            cursor: 'pointer',
+        }}>
+            <div className={cls(boxImg, { [largImg]: !isShowGrid })}
+            onClick={handleNavigateToDetail}>
                 <img src={src} alt="img 1" />
                 <img src={prevSrc} alt="img 2" className={showImgWhenHover} />
                 <div className={showFncWhenHover}>
