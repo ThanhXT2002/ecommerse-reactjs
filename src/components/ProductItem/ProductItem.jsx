@@ -19,7 +19,8 @@ function ProductItem({
     name,
     price,
     details,
-    isHomePage = true
+    isHomePage = true,
+    slideItem = false
 }) {
     // const context = useContext(OurShopContext);
     // const isShowGrid = isHomePage ? true : (context?.isShowGrid ?? true);
@@ -34,7 +35,7 @@ function ProductItem({
     const navigate = useNavigate();
 
     const {
-        containeritem,
+        containerItem,
         boxImg,
         showImgWhenHover,
         showFncWhenHover,
@@ -115,13 +116,20 @@ function ProductItem({
         }
     }, [isHomePage, ourShopStore?.isShowGrid]);
 
+    useEffect(() => {
+        if (slideItem) {
+            setIsShowGrid(true);
+        }
+    }, [slideItem]);
+
     return (
-        <div className={isShowGrid}
-        style={{
-            cursor: 'pointer',
-        }}>
-            <div className={cls(boxImg, { [largImg]: !isShowGrid })}
-            onClick={handleNavigateToDetail}>
+        <div
+            className={isShowGrid ?'' : containerItem}
+            style={{
+                cursor: 'pointer'
+            }}
+        >
+            <div className={cls(boxImg, { [largImg]: !isShowGrid })}  onClick={handleNavigateToDetail}>
                 <img src={src} alt="img 1" />
                 <img src={prevSrc} alt="img 2" className={showImgWhenHover} />
                 <div className={showFncWhenHover}>
@@ -146,9 +154,10 @@ function ProductItem({
                             }}
                         />
                     </div>
-                    <div 
+                    <div
                         className={boxIcon}
-                        onClick={handleShowDetailProductSideBar}>
+                        onClick={handleShowDetailProductSideBar}
+                    >
                         <LiaEyeSolid
                             style={{
                                 fontSize: '23px'
@@ -158,7 +167,10 @@ function ProductItem({
                 </div>
             </div>
 
-            <div className={isShowGrid ? '' : content}>
+            <div className={isShowGrid ? '' : content}
+            style={{ 
+                marginTop: slideItem && '10px'
+                 }}>
                 {!isHomePage && (
                     <div className={boxSize}>
                         {details?.size.map((item, index) => {

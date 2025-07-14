@@ -1,7 +1,7 @@
 @import '@styles/_mixin.module.scss';
 @import '@styles/_variables.module.scss';
 
-.containeritem{
+.containerItem{
     @include flex_box_custom(flex-start, center, 20px);
     margin-top: 10px;
 
