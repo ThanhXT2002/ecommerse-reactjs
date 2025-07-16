@@ -41,14 +41,9 @@ export const SidebarProvider = ({ children }) => {
         setIsLoading,
         userId,
         detailProduct,
-        setDetailProduct
+        setDetailProduct,
+        setListProductCart
     };
-
-    useEffect(() => {
-        if (userId) {
-            handleGetListProductsCart(userId, 'cart');
-        }
-    }, [userId]);
 
     return (
         // Truyền giá trị state và hàm setState xuống các component con qua context

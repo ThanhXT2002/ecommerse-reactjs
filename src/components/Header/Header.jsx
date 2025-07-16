@@ -28,7 +28,7 @@ function MyHeader() {
     const { scrollPosition } = useScrollHandling();
     const [fixedPosition, setFiexedPosition] = useState(false);
 
-    const { setIsOpen, setType, listProductCart, handleGetListProductsCart } = useContext(SidebarContext);
+    const { setIsOpen, setType, listProductCart, handleGetListProductsCart,userId } = useContext(SidebarContext);
 
     const handleOpenSidebar = (type) => {
         setIsOpen(true);
@@ -44,6 +44,13 @@ function MyHeader() {
     };
 
     // console.log('isOpen', isOpen);
+
+
+    const handleOpenCartSideBar = () => {
+        handleGetListProductsCart(userId, 'cart');
+        handleOpenSidebar('cart');
+    };
+
 
     useEffect(() => {
         // if (scrollPosition > 80) {
@@ -116,7 +123,7 @@ function MyHeader() {
                         <div className={boxCart}>
                             <PiShoppingCart
                                 style={{ fontSize: '25px' }}
-                                onClick={() => handleOpenSidebar('cart')}
+                                onClick={() => handleOpenCartSideBar()}
                             />
                             {/* {listProductCart.length > 0 && (
                                 <div className={quantityCart}>
