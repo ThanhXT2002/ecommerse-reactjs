@@ -193,7 +193,7 @@ function DetailProduct() {
                             {'<'} Return to previous page{' '}
                         </div>
                     </div>
-
+                    
                     {isLoading ? (
                         <div className={loading}>
                             <LoadingTextCommon />
