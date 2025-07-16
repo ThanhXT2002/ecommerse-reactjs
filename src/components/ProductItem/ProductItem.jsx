@@ -168,9 +168,9 @@ function ProductItem({
             </div>
 
             <div className={isShowGrid ? '' : content}
-            style={{ 
-                marginTop: slideItem && '10px'
-                 }}>
+                style={{
+                    marginTop: slideItem && '10px'
+                }}>
                 {!isHomePage && (
                     <div className={boxSize}>
                         {details?.size.map((item, index) => {
