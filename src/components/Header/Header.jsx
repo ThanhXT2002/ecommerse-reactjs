@@ -11,6 +11,8 @@ import useScrollHandling from '@/hooks/useScrollHandling';
 import classname from 'classnames';
 import { SidebarContext } from '@contexts/SidebarProvider';
 import Cookies from 'js-cookie';
+import { use } from 'react';
+import { StoreContext } from '@contexts/storeProvider';
 
 function MyHeader() {
     const {
@@ -29,6 +31,7 @@ function MyHeader() {
     const [fixedPosition, setFiexedPosition] = useState(false);
 
     const { setIsOpen, setType, listProductCart, handleGetListProductsCart,userId } = useContext(SidebarContext);
+    const {userInfo} = useContext(StoreContext);
 
     const handleOpenSidebar = (type) => {
         setIsOpen(true);
@@ -50,6 +53,12 @@ function MyHeader() {
         handleGetListProductsCart(userId, 'cart');
         handleOpenSidebar('cart');
     };
+
+    const totalItemCart = listProductCart.length
+    ? listProductCart.reduce((acc, item) => {
+        return (acc += item.quantity);
+      }, 0)
+    : 0;
 
 
     useEffect(() => {
@@ -131,7 +140,7 @@ function MyHeader() {
                                 </div>
                             )} */}
                             <div className={quantityCart}>
-                                    {listProductCart.length}
+                                    {totalItemCart || userInfo?.amountCart || 0 }
                                 </div>
                         </div>
                     </div>

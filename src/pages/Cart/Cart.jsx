@@ -4,23 +4,24 @@ import MyFooter from '@components/Footer/Footer';
 import Steps from '@pages/Cart/components/Steps/Steps';
 import Contents from '@pages/Cart/components/Contents/Contens';
 import MainLayout from '@components/Layout/Layout';
+import { StepperProvider } from '@contexts/SteperProvider';
+import ContentStep from '@pages/Cart/components/ContentStep';
+
 
 function Cart() {
 
     const { container } = styles;
-
     return ( 
-        <>
+        <StepperProvider>
            <MyHeader/>
            <div className={container}>
-             <Steps/>
+             <Steps />
               <MainLayout>
-            <Contents/>
-
+            <ContentStep/>
               </MainLayout>
            </div>
            <MyFooter/>
-        </>
+        </StepperProvider>
     );
 }
 
