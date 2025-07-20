@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { StepperContext } from '@/contexts/SteperProvider';
 import Contents from '@pages/Cart/components/Contents/Contens';
+import Checkout from '@pages/Cart/components/Checkout/Checkout';
 
 // import Checkout from '@/pages/Cart/components/Checkout/Checkout';
 
@@ -14,7 +15,7 @@ function ContentStep() {
       case 2:
         return (
           <>
-            {/* <Checkout /> */}
+            <Checkout />
           </>
         );
       case 3:

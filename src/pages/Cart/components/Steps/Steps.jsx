@@ -1,10 +1,11 @@
 import Stepper from '@pages/Cart/components/Steps/Stepper';
 import styles from '../../styles.module.scss';
-import { data } from 'react-router-dom';
-import React from 'react';
+import React, { useContext } from 'react';
+import { StepperContext } from '@contexts/SteperProvider';
 
 function Steps() {
     const { containerSteps,steps, line,textNoti } = styles;
+    const { currentStep } = useContext(StepperContext);
 
     const dataSteps = [
         { number: 1, content: 'SHOPPING CART' },
@@ -20,7 +21,7 @@ function Steps() {
                             <Stepper
                                 number={item.number}
                                 content={item.content}
-                                isDisabled={index !== 0}
+                                 isDisabled={index >= currentStep}
                             />
                             {index !== dataSteps.length - 1 && (
                                 <div className={line} />
